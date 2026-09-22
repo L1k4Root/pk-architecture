@@ -1,0 +1,19 @@
+name: archkit-lint
+description: >
+  Lint architecture documentation (arc42 sections, C4/Mermaid diagrams, ADR format, ADR index and
+  relative links) with archkit. Fails the job on any finding.
+
+inputs:
+  path:
+    description: Docs root that contains architecture/ and/or adr/.
+    default: docs
+
+runs:
+  using: composite
+  steps:
+    - uses: astral-sh/setup-uv@v10.2.0
+    - name: archkit lint
+      shell: bash
+      env:
+        DOCS_PATH: ${{ inputs.path }}
+      run: uv run --project "${{ github.action_path }}" archkit lint "$DOCS_PATH"

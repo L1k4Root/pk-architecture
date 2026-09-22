@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # ruff + pytest (100% coverage, 90% enforced).
+  python:
+    uses: L1k4Root/pk-ci-workflows/.github/workflows/python-ci.yml@v1
+
+  # The shipped template must always pass its own linter, through the
+  # composite action other repositories use.
+  template:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./
+        with:
+          path: template/docs

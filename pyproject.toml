@@ -1,0 +1,38 @@
+[project]
+name = "archkit"
+version = "1.0.0"
+description = "Docs-as-code for software architecture: create ADRs and lint arc42/C4/ADR documentation in CI."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Andres (L1k4Root)" }]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+archkit = "archkit.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-cov>=6", "ruff>=0.6"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/archkit"]
+
+# Ship the documentation template inside the wheel so `archkit init` works when
+# installed from Git (uvx --from git+https://github.com/L1k4Root/pk-architecture).
+[tool.hatch.build.targets.wheel.force-include]
+"template" = "archkit/template"
+
+[tool.pytest.ini_options]
+addopts = "--cov=archkit --cov-report=term-missing --cov-fail-under=90"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
