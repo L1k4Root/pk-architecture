@@ -112,7 +112,7 @@ uv run archkit lint template/docs
 ```
 
 The implementation uses only the standard library (`argparse`, `pathlib`, `re`, `dataclasses`), in
-about 300 lines across `adr.py`, `lint.py` and `cli.py`.
+about 400 lines across `adr.py`, `lint.py` and `cli.py`.
 
 ## Part of platform-kit
 
